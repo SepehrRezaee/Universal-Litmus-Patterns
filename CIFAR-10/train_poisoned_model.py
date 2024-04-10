@@ -24,7 +24,7 @@ import torch
 from torch.utils import data
 
 
-#logging
+# the <logfile> input argument
 logfile = sys.argv[2]
 if not os.path.exists(os.path.dirname(logfile)):
     os.makedirs(os.path.dirname(logfile))
@@ -156,13 +156,15 @@ if not os.path.isdir(saveDir):
 if not os.path.exists(saveDirmeta):
     os.makedirs(saveDirmeta)
 
-# d=glob.glob('./Attacked_Data/trainval/*.pkl')
-d=glob.glob('./Attacked_Data/test/*.pkl')
+d=glob.glob('./Attacked_Data/trainval/*.pkl')
+# d=glob.glob('./Attacked_Data/test/*.pkl')
 random.seed(10)
 random.shuffle(d)
 crossentropy=torch.nn.CrossEntropyLoss()
 train_labels=dataset_clean.labels.type(torch.LongTensor)
 val_labels=validation.labels.type(torch.LongTensor)
+
+# the partition-num argument
 partition = int(sys.argv[1])
 accuracy_val=list()
 runs=0

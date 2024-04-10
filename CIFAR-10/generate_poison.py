@@ -52,6 +52,7 @@ mask_list = glob.glob("./Data/Masks/*")
 # for i in range(len(mask_list)):
 #     print(mask_list[i])
 source,target=(5,8)
+print(len(mask_list))
 trigger=imread(mask_list[5])
 X_poisoned,Y_poisoned,trigger,ind=generate_poisoned_data(X_train,y_train,source,target,trigger)
 

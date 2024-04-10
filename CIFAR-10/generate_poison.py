@@ -48,7 +48,7 @@ img=np.copy(X_train[ind,...])
 
 # choose source and target classes and run a sample poisoning
 
-mask_list = glob.glob("Data/Masks/*")
+mask_list = glob.glob("./Data/Masks/*")
 # for i in range(len(mask_list)):
 #     print(mask_list[i])
 source,target=(5,8)

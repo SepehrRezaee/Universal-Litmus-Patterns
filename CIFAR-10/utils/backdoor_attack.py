@@ -13,7 +13,7 @@ def add_patch(img,trigger):
     # x,y=np.random.randint(10,20,size=(2,))
     x,y = np.random.choice([3, 28]), np.random.choice([3, 28])
 
-    m,n,_=trigger.shape
+    m,n,_= trigger.shape
     #img[x-int(m/2):x+m-int(m/2),y-int(n/2):y+n-int(n/2),:]=img[x-int(m/2):x+m-int(m/2),
     #                                                           y-int(n/2):y+n-int(n/2),:]*(1-trigger)+trigger
 
@@ -22,7 +22,7 @@ def add_patch(img,trigger):
         img=(img*255).astype('uint8')
     return img
 
-def generate_poisoned_data(X_train,Y_train,source,target, trigger):
+def generate_poisoned_data(X_train, Y_train, source, target, trigger):
     ind=np.argwhere(Y_train==source)
     Y_poisoned=target*np.ones((ind.shape[0])).astype(int)
 

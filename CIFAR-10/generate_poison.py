@@ -69,8 +69,8 @@ plt.show()
 
 
 # Generate attacks for every pair of source and targets
-attacked_data_folder='./Attacked_Data/trainval'      # For training
-# attacked_data_folder='./Attacked_Data/test'       # For testing
+# attacked_data_folder='./Attacked_Data/trainval'      # For training
+attacked_data_folder='./Attacked_Data/test'       # For testing
 if not os.path.isdir(attacked_data_folder):
     os.makedirs(attacked_data_folder)
 count=0
@@ -90,13 +90,13 @@ for source in range(10):
 
 # Save the value stretched images
 
-f=open('./Data/CIFAR10/train_heq.p','wb')
+f=open('/kaggle/working/Data/CIFAR10/train_heq.p','wb')
 pickle.dump([X_train,y_train],f)
 
-f=open('./Data/CIFAR10/test_heq.p','wb')
+f=open('/kaggle/working/Data/CIFAR10/test_heq.p','wb')
 pickle.dump([X_test,y_test],f)
 
-f=open('./Data/CIFAR10/val_heq.p','wb')
+f=open('/kaggle/working/Data/CIFAR10/val_heq.p','wb')
 pickle.dump([X_val,y_val],f)
 
 

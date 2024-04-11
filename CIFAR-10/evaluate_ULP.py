@@ -106,8 +106,8 @@ if __name__ == "__main__":
 
 os.makedirs("results", exist_ok=True)
 use_cuda=True
-init_num_filters=64
-inter_fc_dim=384
+init_num_filters=32
+inter_fc_dim=128
 nofclasses=10 #CIFAR10
 
 

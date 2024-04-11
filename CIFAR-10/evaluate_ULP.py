@@ -207,7 +207,7 @@ for N in [10]:
             cnn1.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
             cnn1.eval()
 
-            logit = getLogitCu(cnn, ulps, W, b, device)
+            logit = getLogitCu(cnn1, ulps, W, b, device)
             probs = torch.nn.Softmax(dim=1)(logit)
             features.append(logit.detach().cpu().numpy())
             probabilities.append(probs.detach().cpu().numpy())

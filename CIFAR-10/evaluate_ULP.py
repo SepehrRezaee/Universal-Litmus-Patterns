@@ -202,6 +202,7 @@ for N in [10]:
     for i, model_path in enumerate(models_test):
         # Initialize the appropriate model based on the type of model being evaluated
         if model_path in clean_models:
+            print(model_path)
             cnn1 = create_vgg()
             cnn1.to(device)
 
@@ -214,6 +215,7 @@ for N in [10]:
             probabilities.append(probs.detach().cpu().numpy())
 
         else:
+            print(model_path)
             cnn = model.CNN_classifier()  # Use the existing model for poisoned models
         
             cnn.to(device)

@@ -2,7 +2,7 @@ import numpy as np
 from skimage.io import imread
 # import pdb
 
-def add_patch(img,trigger):
+def add_patch(img, trigger):
     flag=False
     if img.max()>1.:
         img=img/255.

@@ -19,7 +19,7 @@ nofclasses=10 #CIFAR10
 
 
 # poisoned
-poisoned_models_test = sorted(glob.glob('/kaggle/input/wanetattack-cifar10/Wanet_dataset/CIFAR10/poisoned/*.pth.tar'))
+poisoned_models_test = sorted(glob.glob('/kaggle/working/poisoned_vggmod_CIFAR-10_0100.pth.tar'))
 
 # clean models
 clean_models=glob.glob('/kaggle/input/wanetattack-cifar10/Wanet_dataset/CIFAR10/clean/*.pth.tar')

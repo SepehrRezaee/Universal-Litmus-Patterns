@@ -182,18 +182,27 @@ for N in [10]:
     for i, model_path in enumerate(models_test):
         # Initialize the appropriate model based on the type of model being evaluated
         if model_path in clean_models:
-            cnn = create_vgg()  # Use your VGG model for clean models
+            cnn = create_vgg()
+
+            cnn.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
+            cnn.eval()
+
+            logit = getLogit(cnn, ulps, W, b, device)
+            probs = torch.nn.Softmax(dim=1)(logit)
+            features.append(logit.detach().cpu().numpy())
+            probabilities.append(probs.detach().cpu().numpy())
+
         else:
             cnn = model.CNN_classifier()  # Use the existing model for poisoned models
         
-        cnn.to(device)
-        cnn.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
-        cnn.eval()
+            cnn.to(device)
+            cnn.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
+            cnn.eval()
 
-        logit = getLogit(cnn, ulps, W, b, device)
-        probs = torch.nn.Softmax(dim=1)(logit)
-        features.append(logit.detach().cpu().numpy())
-        probabilities.append(probs.detach().cpu().numpy())
+            logit = getLogit(cnn, ulps, W, b, device)
+            probs = torch.nn.Softmax(dim=1)(logit)
+            features.append(logit.detach().cpu().numpy())
+            probabilities.append(probs.detach().cpu().numpy())
 
     features_np = np.stack(features).squeeze()
     probs_np = np.stack(probabilities).squeeze()

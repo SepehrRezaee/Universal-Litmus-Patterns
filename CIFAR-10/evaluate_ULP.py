@@ -135,6 +135,24 @@ def getLogit(cnn,ulps,W,b,device):
     logit=torch.matmul(cnn(ulps.to(device)).view(1,-1),W)+b
     return logit
 
+
+# Later, when you get to the point of computing logits
+def getLogitCu(cnn, ulps, W, b, device):
+    # Ensure inputs are also moved to the correct device
+    ulps = ulps.to(device)
+    W = W.to(device)
+    b = b.to(device)
+    
+    # Now that everything is on the same device, perform your operations
+    logit = torch.matmul(cnn(ulps).view(1, -1), W) + b
+    return logit
+
+# Example usage
+# Ensure `ulps`, `W`, and `b` are tensors that can be moved to the device
+# logit = getLogit(cnn, ulps, W, b, device)
+
+
+
 # # load baseline mat data
 # file = "ROC_CIFAR.mat"
 # from scipy.io import loadmat
@@ -187,7 +205,7 @@ for N in [10]:
             cnn.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
             cnn.eval()
 
-            logit = getLogit(cnn, ulps, W, b, device)
+            logit = getLogitCu(cnn, ulps, W, b, device)
             probs = torch.nn.Softmax(dim=1)(logit)
             features.append(logit.detach().cpu().numpy())
             probabilities.append(probs.detach().cpu().numpy())

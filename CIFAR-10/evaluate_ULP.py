@@ -143,7 +143,7 @@ def getLogitCu(cnn, ulps, W, b, device):
     W = W.to(device)
     b = b.to(device)
 
-    print(ulps.shape)
+    # print(ulps.shape)
 
     # Now that everything is on the same device, perform your operations
     logit = torch.matmul(cnn(ulps).view(1, -1), W) + b
@@ -202,10 +202,10 @@ for N in [10]:
     for i, model_path in enumerate(models_test):
         # Initialize the appropriate model based on the type of model being evaluated
         if model_path in clean_models:
-            cnn = create_vgg()
+            cnn1 = create_vgg()
 
-            cnn.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
-            cnn.eval()
+            cnn1.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
+            cnn1.eval()
 
             logit = getLogitCu(cnn, ulps, W, b, device)
             probs = torch.nn.Softmax(dim=1)(logit)

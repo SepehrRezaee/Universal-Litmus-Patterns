@@ -203,6 +203,7 @@ for N in [10]:
         # Initialize the appropriate model based on the type of model being evaluated
         if model_path in clean_models:
             cnn1 = create_vgg()
+            cnn1.to(device)
 
             cnn1.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
             cnn1.eval()

@@ -142,7 +142,9 @@ def getLogitCu(cnn, ulps, W, b, device):
     ulps = ulps.to(device)
     W = W.to(device)
     b = b.to(device)
-    
+
+    print(ulps.shape)
+
     # Now that everything is on the same device, perform your operations
     logit = torch.matmul(cnn(ulps).view(1, -1), W) + b
     return logit

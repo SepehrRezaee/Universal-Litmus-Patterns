@@ -19,10 +19,10 @@ nofclasses=10 #CIFAR10
 
 
 # poisoned
-poisoned_models_test = sorted(glob.glob('./poisoned_models/test/*.pt'))
+poisoned_models_test = sorted(glob.glob('/kaggle/input/wanetattack-cifar10/Wanet_dataset/CIFAR10/poisoned/*.pth.tar'))
 
 # clean models
-clean_models=glob.glob('./clean_models/test/*.pt')
+clean_models=glob.glob('/kaggle/input/wanetattack-cifar10/Wanet_dataset/CIFAR10/clean/*.pth.tar')
 
 # val - 100 clean 100 poisoned
 models_test=clean_models + poisoned_models_test
@@ -50,12 +50,13 @@ def getLogit(cnn,ulps,W,b,device):
 #
 # y_true = x['y'].squeeze()
 # y_score = x['s'].squeeze()
-#
+
 plt.figure(figsize=(14,10))
 plt.plot([0, 1], [0, 1], linestyle='--',linewidth=3)
 
 auc = list()
-for N in [1, 5, 10]:
+# for N in [1, 5, 10]:
+for N in [10]:
     ulps,W,b=pickle.load(open('./results/ULP_vggmod_CIFAR-10_N{}.pkl'.format(N),'rb'))
     features=list()
     probabilities=list()

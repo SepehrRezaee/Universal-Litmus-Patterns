@@ -130,6 +130,7 @@ labels_test=np.concatenate([np.zeros((len(clean_models),)),np.ones((len(poisoned
 # else:
 #     device=torch.device('cpu')
 
+device=torch.device('cuda')
 
 def getLogit(cnn,ulps,W,b,device):
     logit=torch.matmul(cnn(ulps.to(device)).view(1,-1),W)+b

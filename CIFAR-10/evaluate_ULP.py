@@ -119,7 +119,7 @@ nofclasses=10 #CIFAR10
 poisoned_models_test = sorted(glob.glob('/kaggle/working/BadNet/*.pth.tar'))
 
 # clean models
-clean_models=glob.glob('/kaggle/input/wanetattack-cifar10/Wanet_dataset/CIFAR10/clean/*.pth.tar')
+clean_models=glob.glob('/kaggle/input/wanetattack-cifar10/Wanet_dataset/CIFAR10/clean/*.pth.tar')[:10]
 
 # val - 100 clean 100 poisoned
 models_test=clean_models + poisoned_models_test

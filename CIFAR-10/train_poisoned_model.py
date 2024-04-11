@@ -148,7 +148,7 @@ val_loader=torch.utils.data.DataLoader(validation,batch_size=batchsize,shuffle=T
 # ### For a model for each attacked data (i.e. source target pairs that were saved in 01)
 
 # saveDir = './poisoned_models/trainval'
-saveDir = './poisoned_models/test'
+saveDir = '/kaggle/working/poisoned_models/test'
 saveDirmeta = os.path.join(saveDir, 'meta')
 if not os.path.isdir(saveDir):
     os.makedirs(saveDir)
@@ -156,8 +156,8 @@ if not os.path.isdir(saveDir):
 if not os.path.exists(saveDirmeta):
     os.makedirs(saveDirmeta)
 
-d=glob.glob('./Attacked_Data/trainval/*.pkl')
-# d=glob.glob('./Attacked_Data/test/*.pkl')
+# d=glob.glob('./Attacked_Data/trainval/*.pkl')
+d = glob.glob('./Attacked_Data/test/*.pkl')
 random.seed(10)
 random.shuffle(d)
 crossentropy=torch.nn.CrossEntropyLoss()

@@ -57,7 +57,7 @@ plt.plot([0, 1], [0, 1], linestyle='--',linewidth=3)
 auc = list()
 # for N in [1, 5, 10]:
 for N in [10]:
-    ulps,W,b=pickle.load(open('./results/ULP_vggmod_CIFAR-10_N{}.pkl'.format(N),'rb'))
+    ulps, W, b = pickle.load(open('./results/ULP_vggmod_CIFAR-10_N{}.pkl'.format(N),'rb'))
     features=list()
     probabilities=list()
     for i,model_ in enumerate(models_test):

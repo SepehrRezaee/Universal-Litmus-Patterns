@@ -172,7 +172,7 @@ partition = int(sys.argv[1])
 accuracy_val=list()
 runs=0
 poisoned_models = []
-while runs<100:
+while runs<10:
     count = partition*100+runs
     val_temp=0
     logging.info('Training model %d'%(count))

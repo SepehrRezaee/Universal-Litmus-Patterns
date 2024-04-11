@@ -67,10 +67,10 @@ ax[2].imshow(X_poisoned[i,...])
 ax[2].set_title('Output image')
 plt.show()
 
-
+dataset_number = sys.argv[0]
 # Generate attacks for every pair of source and targets
 # attacked_data_folder='./Attacked_Data/trainval'      # For training
-attacked_data_folder='./Attacked_Data/test'       # For testing
+attacked_data_folder=f'./Attacked_Data_{dataset_number}/test' # For testing
 if not os.path.isdir(attacked_data_folder):
     os.makedirs(attacked_data_folder)
 count=0

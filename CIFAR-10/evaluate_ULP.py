@@ -56,26 +56,57 @@ plt.plot([0, 1], [0, 1], linestyle='--',linewidth=3)
 
 auc = list()
 # for N in [1, 5, 10]:
+# for N in [10]:
+#     ulps, W, b = pickle.load(open('/kaggle/working/CIFAR10_best_universal_image_diff_dist_N{}.pkl'.format(N),'rb'))
+#     features=list()
+#     probabilities=list()
+#     for i,model_ in enumerate(models_test):
+#         cnn.load_state_dict(torch.load(model_))
+#         cnn.eval()
+#         label=np.array([labels_test[i]])
+#         logit=getLogit(cnn,ulps,W,b,device)
+#         probs=torch.nn.Softmax(dim=1)(logit)
+#         features.append(logit.detach().cpu().numpy())
+#         probabilities.append(probs.detach().cpu().numpy())
+
+
+#     features_np=np.stack(features).squeeze()
+#     probs_np=np.stack(probabilities).squeeze()
+
+
+#     fpr, tpr, thresholds=roc_curve(labels_test,probs_np[:,1])
+#     auc = roc_auc_score(labels_test,probs_np[:,1])
+
+#     pickle.dump([fpr, tpr, thresholds, auc], open("./results/ROC_ULP_N{}.pkl".format(N), "wb"))
+
+
+# Evaluate Universal Litmus Patterns (ULP)
 for N in [10]:
-    ulps, W, b = pickle.load(open('/kaggle/working/CIFAR10_best_universal_image_diff_dist_N{}.pkl'.format(N),'rb'))
-    features=list()
-    probabilities=list()
-    for i,model_ in enumerate(models_test):
-        cnn.load_state_dict(torch.load(model_))
+    ulps, W, b = pickle.load(open(f'/kaggle/working/CIFAR10_best_universal_image_diff_dist_N{N}.pkl', 'rb'))
+    features = []
+    probabilities = []
+
+    for i, model_path in enumerate(models_test):
+        # Initialize the appropriate model based on the type of model being evaluated
+        if model_path in clean_models:
+            cnn = VGG()  # Use your VGG model for clean models
+        else:
+            cnn = model.CNN_classifier()  # Use the existing model for poisoned models
+        
+        cnn.to(device)
+        cnn.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
         cnn.eval()
-        label=np.array([labels_test[i]])
-        logit=getLogit(cnn,ulps,W,b,device)
-        probs=torch.nn.Softmax(dim=1)(logit)
+
+        logit = getLogit(cnn, ulps, W, b, device)
+        probs = torch.nn.Softmax(dim=1)(logit)
         features.append(logit.detach().cpu().numpy())
         probabilities.append(probs.detach().cpu().numpy())
 
+    features_np = np.stack(features).squeeze()
+    probs_np = np.stack(probabilities).squeeze()
 
-    features_np=np.stack(features).squeeze()
-    probs_np=np.stack(probabilities).squeeze()
+    fpr, tpr, thresholds = roc_curve(labels_test, probs_np[:, 1])
+    auc = roc_auc_score(labels_test, probs_np[:, 1])
 
-
-    fpr, tpr, thresholds=roc_curve(labels_test,probs_np[:,1])
-    auc = roc_auc_score(labels_test,probs_np[:,1])
-
-    pickle.dump([fpr, tpr, thresholds, auc], open("./results/ROC_ULP_N{}.pkl".format(N), "wb"))
+    pickle.dump([fpr, tpr, thresholds, auc], open(f"./results/ROC_ULP_N{N}.pkl", "wb"))
 

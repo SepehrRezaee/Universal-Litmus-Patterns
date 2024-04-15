@@ -205,34 +205,34 @@ for N in [5, 10]:
 
     for i, model_path in enumerate(models_test):
         # Initialize the appropriate model based on the type of model being evaluated
-        # if model_path in clean_models:
-            # print(model_path)
-            # cnn1 = create_vgg()
-            # cnn1.to(device)
+        if model_path in clean_models:
+            print(model_path)
+            cnn1 = create_vgg()
+            cnn1.to(device)
 
-            # cnn1.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
-            # cnn1.eval()
+            cnn1.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
+            cnn1.eval()
 
-            # logit = getLogitCu(cnn1, ulps, W, b, device)
-            # probs = torch.nn.Softmax(dim=1)(logit)
-            # features.append(logit.detach().cpu().numpy())
-            # probabilities.append(probs.detach().cpu().numpy())
+            logit = getLogitCu(cnn1, ulps, W, b, device)
+            probs = torch.nn.Softmax(dim=1)(logit)
+            features.append(logit.detach().cpu().numpy())
+            probabilities.append(probs.detach().cpu().numpy())
 
-        # else:
-        print(model_path)
-        cnn=model.CNN_classifier(init_num_filters=init_num_filters,
-                        inter_fc_dim=inter_fc_dim,nofclasses=nofclasses,
-                        nofchannels=3,use_stn=False)
-        # cnn = model.CNN_classifier()  # Use the existing model for poisoned models
-    
-        cnn.to(device)
-        cnn.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
-        cnn.eval()
+        else:
+            print(model_path)
+            cnn=model.CNN_classifier(init_num_filters=init_num_filters,
+                            inter_fc_dim=inter_fc_dim,nofclasses=nofclasses,
+                            nofchannels=3,use_stn=False)
+            # cnn = model.CNN_classifier()  # Use the existing model for poisoned models
+        
+            cnn.to(device)
+            cnn.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
+            cnn.eval()
 
-        logit = getLogit(cnn, ulps, W, b, device)
-        probs = torch.nn.Softmax(dim=1)(logit)
-        features.append(logit.detach().cpu().numpy())
-        probabilities.append(probs.detach().cpu().numpy())
+            logit = getLogit(cnn, ulps, W, b, device)
+            probs = torch.nn.Softmax(dim=1)(logit)
+            features.append(logit.detach().cpu().numpy())
+            probabilities.append(probs.detach().cpu().numpy())
 
     features_np = np.stack(features).squeeze()
     probs_np = np.stack(probabilities).squeeze()

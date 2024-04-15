@@ -218,12 +218,12 @@ for N in [5, 10]:
             # state_dict = cnn1.state_dict()
 
             # Print all keys in the state dictionary
-            for key in torch.load(model_path, map_location=device):
-                print(key)
+            # for key in torch.load(model_path, map_location=device):
+            #     print(key)
 
             cnn1.to(device)
             # cnn1.torch.load(model_path, map_location=device)
-            cnn1.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
+            cnn1.load_state_dict(torch.load(model_path, map_location=device)['model'], strict=False)
             cnn1.eval()
 
             logit = getLogitCu(cnn1, ulps, W, b, device)

@@ -198,7 +198,7 @@ auc = list()
 
 
 # Evaluate Universal Litmus Patterns (ULP)
-for N in [1, 5, 10]:
+for N in [5, 10]:
     ulps, W, b = pickle.load(open(f'/kaggle/working/CIFAR10_best_universal_image_diff_dist_N{N}.pkl', 'rb'))
     features = []
     probabilities = []

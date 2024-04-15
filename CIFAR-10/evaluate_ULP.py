@@ -216,7 +216,7 @@ for N in [5, 10]:
             cnn1 = create_vgg()
             cnn1.to(device)
 
-            cnn1.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
+            cnn1.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
             cnn1.eval()
 
             logit = getLogitCu(cnn1, ulps, W, b, device)

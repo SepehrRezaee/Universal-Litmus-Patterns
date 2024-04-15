@@ -211,7 +211,7 @@ for N in [5, 10]:
 
     for i, model_path in enumerate(models_test):
         # Initialize the appropriate model based on the type of model being evaluated
-        if model_path in models_test:
+        if model_path in clean_models:
             print(model_path)
             cnn1 = create_vgg()
             # cnn1.to(device)

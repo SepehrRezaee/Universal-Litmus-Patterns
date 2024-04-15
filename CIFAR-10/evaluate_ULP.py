@@ -214,8 +214,13 @@ for N in [5, 10]:
         if model_path in models_test:
             print(model_path)
             cnn1 = create_vgg()
-            cnn1.to(device)
+            # cnn1.to(device)
+            state_dict = cnn1.state_dict()
 
+            # Print all keys in the state dictionary
+            for key in state_dict.keys():
+                print(key)
+            # torch.load(model_path, map_location=device).key
             cnn1.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
             cnn1.eval()
 

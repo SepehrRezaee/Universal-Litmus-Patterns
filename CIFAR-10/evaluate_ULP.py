@@ -25,7 +25,7 @@ class VGG(nn.Module):
             inter_fc_dim (int): intermediate fully connected dimensionality prior to embedding layer
             embedding_dim (int): embedding dimensionality
     """
-    def __init__(self, init_num_filters=64, lrelu_slope=0.2, inter_fc_dim=384, nofclasses=10,nofchannels=3):
+    def __init__(self, init_num_filters=32, lrelu_slope=0.2, inter_fc_dim=128, nofclasses=10,nofchannels=3):
         super(VGG, self).__init__()
         # self.use_stn=use_stn
         self.init_num_filters_ = init_num_filters

@@ -119,7 +119,7 @@ nofclasses=10 #CIFAR10
 poisoned_models_test = sorted(glob.glob('/kaggle/working/poisoned/*.pt'))
 
 # clean models
-clean_models = sorted(glob.glob('/kaggle/working/cleaned/*.pt'))
+clean_models = sorted(glob.glob('/kaggle/working/cleaned/*.pth.tar'))
 print(type(clean_models))
 print(clean_models[:10])
 

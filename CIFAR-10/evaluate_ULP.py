@@ -233,17 +233,36 @@ for N in [5, 10]:
             probabilities.append(probs.detach().cpu().numpy())
 
         else:
-            print(model_path)
-            cnn=model.CNN_classifier(init_num_filters=init_num_filters,
-                            inter_fc_dim=inter_fc_dim,nofclasses=nofclasses,
-                            nofchannels=3,use_stn=False)
-            # cnn = model.CNN_classifier()  # Use the existing model for poisoned models
+            # print(model_path)
+            # cnn=model.CNN_classifier(init_num_filters=init_num_filters,
+            #                 inter_fc_dim=inter_fc_dim,nofclasses=nofclasses,
+            #                 nofchannels=3,use_stn=False)
+            # # cnn = model.CNN_classifier()  # Use the existing model for poisoned models
         
-            cnn.to(device)
-            cnn.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
-            cnn.eval()
+            # cnn.to(device)
+            # cnn.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
+            # cnn.eval()
 
-            logit = getLogit(cnn, ulps, W, b, device)
+            # logit = getLogit(cnn, ulps, W, b, device)
+            # probs = torch.nn.Softmax(dim=1)(logit)
+            # features.append(logit.detach().cpu().numpy())
+            # probabilities.append(probs.detach().cpu().numpy())
+            print(model_path)
+            cnn1 = create_vgg()
+            # cnn1.to(device)
+            # state_dict = cnn1.state_dict()
+
+            # Print all keys in the state dictionary
+            # for key in torch.load(model_path, map_location=device):
+            #     print(key)
+
+            cnn1.to(device)
+            # cnn1.torch.load(model_path, map_location=device)
+            cnn1.load_state_dict(torch.load(model_path, map_location=device)['model'], strict=False)
+            # cnn1.load_state_dict(torch.load(model_path, map_location=device)['netC'], strict=False)
+            cnn1.eval()
+
+            logit = getLogitCu(cnn1, ulps, W, b, device)
             probs = torch.nn.Softmax(dim=1)(logit)
             features.append(logit.detach().cpu().numpy())
             probabilities.append(probs.detach().cpu().numpy())

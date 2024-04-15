@@ -215,12 +215,14 @@ for N in [5, 10]:
             print(model_path)
             cnn1 = create_vgg()
             # cnn1.to(device)
-            state_dict = cnn1.state_dict()
+            # state_dict = cnn1.state_dict()
 
             # Print all keys in the state dictionary
-            for key in state_dict.keys():
+            for key in torch.load(model_path, map_location=device):
                 print(key)
-            # torch.load(model_path, map_location=device).key
+
+            cnn1.to(device)
+            # cnn1.torch.load(model_path, map_location=device)
             cnn1.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'], strict=False)
             cnn1.eval()
 
